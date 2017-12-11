@@ -1,0 +1,24 @@
+---
+workspace: /root
+hostname: lamp
+ntp_timezone: Moscow Standard Time
+
+apache_enablerepo: remi
+apache_vhosts:
+  - {servername: "lamp", documentroot: "/var/www/html"}
+
+php_enablerepo: remi
+
+mysql_root_password: root
+mysql_enablerepo: remi
+
+---
+nodejs_forever: true
+
+firewall_allowed_tcp_ports:
+  - "22"
+  - "8080"
+
+app_repository: https://github.com/geerlingguy/demo-nodejs-api.git
+app_version: "1.0.2"
+app_directory: /opt/demo-nodejs-api

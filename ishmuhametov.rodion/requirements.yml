@@ -1,0 +1,12 @@
+---
+- src: firewall
+- src: ntp
+- src: repo-epel
+- src: repo-remi
+- src: mysql
+- src: apache
+- src: php
+- src: php-mysql
+- src: java
+- src: solr
+- src: nodejs

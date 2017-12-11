@@ -1,0 +1,103 @@
+VAGRANTFILE_API_VERSION = "2"
+
+# Linux, Apache, MySQL, PHP
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "geerlingguy/ubuntu1604"
+  config.ssh.insert_key = false
+
+  provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
+  
+  config.vm.provider :virtualbox do |v|
+    v.name = "lamp"
+    v.memory = 512
+    v.cpus = 2
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
+  end
+
+  config.vm.hostname = "lamp"
+  config.vm.network :private_network, ip: "192.168.33.33"
+
+  config.vm.define :lamp do |lamp|
+	lamp.vm.network :private_network, ip: "192.168.33.34"
+    lamp.vm.hostname = "lamp"
+    lamp.vm.provision provisioner do |ansible|
+      ansible.playbook = "provisioning/playbook.yml"
+    end
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provisioning/playbook.yml"
+    ansible.inventory_path = "provisioning/inventory"
+    ansible.become = true
+  end
+
+end
+
+# Apache Solr (Java-based text search service)
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "geerlingguy/ubuntu1404"
+  config.ssh.insert_key = false
+
+  provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
+  
+  config.vm.provider :virtualbox do |v|
+    v.name = "solr"
+    v.memory = 1024
+    v.cpus = 2
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
+  end
+
+  config.vm.hostname = "solr"
+  config.vm.network :private_network, ip: "192.168.33.44"
+
+  config.vm.define :solr do |solr|
+	solr.vm.network :private_network, ip: "192.168.33.45"
+    solr.vm.hostname = "solr"
+    solr.vm.provision provisioner do |ansible|
+      ansible.playbook = "provisioning/playbook.yml"
+    end
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provisioning/playbook.yml"
+    ansible.inventory_path = "provisioning/inventory"
+    ansible.become = true
+  end
+
+end
+
+# Node.js-based API app using restify
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "geerlingguy/ubuntu1404"
+  config.ssh.insert_key = false
+
+  provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
+  
+  config.vm.provider :virtualbox do |v|
+    v.name = "nodejs"
+    v.memory = 256
+    v.cpus = 1
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
+  end
+
+  config.vm.hostname = "nodejs"
+  config.vm.network :private_network, ip: "192.168.33.27"
+
+  config.vm.define :nodejs do |nodejs|
+	nodejs.vm.network :private_network, ip: "192.168.33.28"
+    nodejs.vm.hostname = "nodejs"
+    nodejs.vm.provision provisioner do |ansible|
+      ansible.playbook = "provisioning/playbook.yml"
+    end
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provisioning/playbook.yml"
+    ansible.inventory_path = "provisioning/inventory"
+    ansible.become = true
+  end
+
+end
