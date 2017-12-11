@@ -5,5 +5,5 @@
 * __Node.js__ - Node.js-based API app using restify
 
 ## Setup
-1. Install vagrant-guest_ansible plugin: `$ vagrant plugin install vagrant-guest_ansible`  
+1. On Windows install vagrant-guest_ansible plugin: `$ vagrant plugin install vagrant-guest_ansible`  
 2. `$ vagrant up`
