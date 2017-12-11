@@ -1,4 +1,5 @@
 # Vagrant VMs with Ansible provisioners
+3 virtual machines running on Vagrant, VirtualBox and Ansible
 ## VMs
 * __LAMP__ - Linux, Apache, MySQL, and PHP
 * __Apache Solr__ - Java-based text search service
