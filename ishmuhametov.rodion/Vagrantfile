@@ -2,7 +2,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 # Linux, Apache, MySQL, PHP
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "geerlingguy/ubuntu1604"
+  config.vm.box = "ubuntu/xenial64"
   config.ssh.insert_key = false
 
   provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
@@ -36,7 +36,7 @@ end
 
 # Apache Solr (Java-based text search service)
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "geerlingguy/ubuntu1404"
+  config.vm.box = "ubuntu/trusty64"
   config.ssh.insert_key = false
 
   provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
@@ -70,7 +70,7 @@ end
 
 # Node.js-based API app using restify
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "geerlingguy/ubuntu1404"
+  config.vm.box = "ubuntu/trusty64"
   config.ssh.insert_key = false
 
   provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
